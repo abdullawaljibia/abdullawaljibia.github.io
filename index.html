@@ -2,11 +2,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abdul LAWAL Islamic Medicine - Data & Airtime</title>
+<title>Abdul LAWAL Services Platform - Demo</title>
 <style>
 body { font-family: Arial, sans-serif; background:#f5f5f5; margin:0; }
 header { background:#0a7cff; color:white; padding:20px; text-align:center; }
-.container { padding:20px; max-width:700px; margin:auto; }
+.container { padding:20px; max-width:800px; margin:auto; }
 .card { background:white; padding:20px; margin-bottom:20px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.15); }
 .button { display:inline-block; background:#0a7cff; color:white; text-decoration:none; padding:10px 15px; border-radius:6px; margin:5px 0; border:none; cursor:pointer; }
 input, select { width:100%; padding:10px; margin:6px 0; }
@@ -16,8 +16,8 @@ footer { text-align:center; padding:15px; background:#222; color:#ccc; }
 </head>
 <body>
 <header>
-<h1>Abdul LAWAL Islamic Medicine</h1>
-<p>Data & Airtime Sales with Payment & Auto Vending</p>
+<h1>Abdul LAWAL Services Platform - Demo</h1>
+<p>Data, Airtime & Utility Payments (Simulated)</p>
 </header><div class="container" id="auth">
   <div class="card" id="registerCard">
     <h2>Register</h2>
@@ -57,9 +57,8 @@ footer { text-align:center; padding:15px; background:#222; color:#ccc; }
   </div>
 </div><div class="container" id="dashboard" style="display:none;">
   <div class="card">
-    <h2>Welcome, <span id="userName"></span>!</h2><div id="orderStatus" class="status" style="display:none;"></div>
-
-<h3>Order Data</h3>
+    <h2>Welcome, <span id="userName"></span>!</h2>
+    <div id="orderStatus" class="status" style="display:none;"></div><h3>Order Data</h3>
 <form onsubmit="sendOrder(); return false;">
   <label>Network:</label>
   <select id="network">
@@ -76,7 +75,7 @@ footer { text-align:center; padding:15px; background:#222; color:#ccc; }
   </select>
   <label>Recipient Phone:</label>
   <input type="tel" id="phone" required />
-  <button class="button" type="submit">Buy Now</button>
+  <button class="button" type="submit">Buy Now (Demo Payment)</button>
 </form>
 
 <h3>Order Airtime</h3>
@@ -92,7 +91,23 @@ footer { text-align:center; padding:15px; background:#222; color:#ccc; }
   <input type="number" id="amount" required />
   <label>Recipient Phone:</label>
   <input type="tel" id="airphone" required />
-  <button class="button" type="submit">Buy Now</button>
+  <button class="button" type="submit">Buy Now (Demo Payment)</button>
+</form>
+
+<h3>Pay Bills (Demo)</h3>
+<form onsubmit="payBill(); return false;">
+  <label>Service:</label>
+  <select id="billService">
+    <option>Electricity</option>
+    <option>Water</option>
+    <option>Cable TV</option>
+    <option>Internet</option>
+  </select>
+  <label>Amount:</label>
+  <input type="number" id="billAmount" required />
+  <label>Account/Customer Number:</label>
+  <input type="text" id="billAccount" required />
+  <button class="button" type="submit">Pay Now (Demo Payment)</button>
 </form>
 
 <button class="button" onclick="logoutUser()">Logout</button>
@@ -103,12 +118,12 @@ footer { text-align:center; padding:15px; background:#222; color:#ccc; }
     <h2>Admin Dashboard</h2>
     <h3>Registered Users</h3>
     <ul id="userList"></ul>
-    <h3>Orders</h3>
+    <h3>Orders & Payments (Demo)</h3>
     <ul id="orderList"></ul>
     <button class="button" onclick="logoutAdmin()">Logout Admin</button>
   </div>
 </div><footer>
-<p>© 2026 ABDUL LAWAL Islamic Medicine</p>
+<p>© 2026 ABDUL LAWAL Services - Demo Mode</p>
 </footer><script>
 const adminEmail = 'admin@abdullawal.com';
 const adminPass = 'Admin123';
@@ -172,27 +187,24 @@ function showAdminOrders(){
   orders.forEach(o=>{ let li=document.createElement('li'); li.textContent=o; list.appendChild(li); });
 }
 
-// Payment Simulation + Auto Vending
-function simulatePayment(callback){
-  setTimeout(()=>{ callback(true); }, 1500); // Simulate 1.5s payment processing
-}
+function simulatePayment(callback){ setTimeout(()=>{ callback(true); }, 1500); }
 
 function sendOrder(){
   let n=document.getElementById('network').value;
   let p=document.getElementById('plan').value;
   let ph=document.getElementById('phone').value;
-  let msg=`Order Data: Network=${n}, Plan=${p}, Phone=${ph}, Status=Pending Payment`;
+  let msg=`Order Data: Network=${n}, Plan=${p}, Phone=${ph}, Status=Pending Payment (Demo)`;
   let orders=JSON.parse(localStorage.getItem('orders')||'[]');
   orders.push(msg);
   localStorage.setItem('orders',JSON.stringify(orders));
   document.getElementById('orderStatus').style.display='block';
-  document.getElementById('orderStatus').innerText='Processing Payment...';
+  document.getElementById('orderStatus').innerText='Processing Payment... (Demo)';
   simulatePayment(success=>{
     if(success){
       let updatedOrders=JSON.parse(localStorage.getItem('orders'));
-      updatedOrders[updatedOrders.length-1]=`Order Data: Network=${n}, Plan=${p}, Phone=${ph}, Status=Paid & Delivered`;
+      updatedOrders[updatedOrders.length-1]=`Order Data: Network=${n}, Plan=${p}, Phone=${ph}, Status=Paid & Delivered (Demo)`;
       localStorage.setItem('orders',JSON.stringify(updatedOrders));
-      document.getElementById('orderStatus').innerText='Order Paid & Delivered!';
+      document.getElementById('orderStatus').innerText='Order Paid & Delivered! (Demo)';
     }
     showAdminOrders();
   });
@@ -202,18 +214,39 @@ function sendAirtime(){
   let n=document.getElementById('airtel').value;
   let a=document.getElementById('amount').value;
   let ph=document.getElementById('airphone').value;
-  let msg=`Order Airtime: Network=${n}, Amount=${a}, Phone=${ph}, Status=Pending Payment`;
+  let msg=`Order Airtime: Network=${n}, Amount=${a}, Phone=${ph}, Status=Pending Payment (Demo)`;
   let orders=JSON.parse(localStorage.getItem('orders')||'[]');
   orders.push(msg);
   localStorage.setItem('orders',JSON.stringify(orders));
   document.getElementById('orderStatus').style.display='block';
-  document.getElementById('orderStatus').innerText='Processing Payment...';
+  document.getElementById('orderStatus').innerText='Processing Payment... (Demo)';
   simulatePayment(success=>{
     if(success){
       let updatedOrders=JSON.parse(localStorage.getItem('orders'));
-      updatedOrders[updatedOrders.length-1]=`Order Airtime: Network=${n}, Amount=${a}, Phone=${ph}, Status=Paid & Delivered`;
+      updatedOrders[updatedOrders.length-1]=`Order Airtime: Network=${n}, Amount=${a}, Phone=${ph}, Status=Paid & Delivered (Demo)`;
       localStorage.setItem('orders',JSON.stringify(updatedOrders));
-      document.getElementById('orderStatus').innerText='Order Paid & Delivered!';
+      document.getElementById('orderStatus').innerText='Order Paid & Delivered! (Demo)';
+    }
+    showAdminOrders();
+  });
+}
+
+function payBill(){
+  let s=document.getElementById('billService').value;
+  let a=document.getElementById('billAmount').value;
+  let acc=document.getElementById('billAccount').value;
+  let msg=`Bill Payment: Service=${s}, Amount=${a}, Account=${acc}, Status=Pending Payment (Demo)`;
+  let orders=JSON.parse(localStorage.getItem('orders')||'[]');
+  orders.push(msg);
+  localStorage.setItem('orders',JSON.stringify(orders));
+  document.getElementById('orderStatus').style.display='block';
+  document.getElementById('orderStatus').innerText='Processing Payment... (Demo)';
+  simulatePayment(success=>{
+    if(success){
+      let updatedOrders=JSON.parse(localStorage.getItem('orders'));
+      updatedOrders[updatedOrders.length-1]=`Bill Payment: Service=${s}, Amount=${a}, Account=${acc}, Status=Paid & Completed (Demo)`;
+      localStorage.setItem('orders',JSON.stringify(updatedOrders));
+      document.getElementById('orderStatus').innerText='Bill Paid & Completed! (Demo)';
     }
     showAdminOrders();
   });
