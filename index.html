@@ -1,45 +1,147 @@
 <!DOCTYPE html><html lang="ha">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Abdul LAWAL ISLAMIC MEDICINE JIBIA</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#f5f5f5; margin:0; }
-    header { background:#0a7cff; color:white; padding:20px; text-align:center; }
-    .container { padding:20px; }
-    .card { background:white; padding:20px; margin-bottom:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    a.button { display:inline-block; background:#0a7cff; color:white; text-decoration:none; padding:10px 15px; border-radius:5px; margin-top:10px; }
-    a.button:hover { background:#055ec4; }
-    footer { text-align:center; padding:15px; background:#222; color:#ccc; }
-    .lang { font-size:14px; color:#666; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdul LAWAL ISLAMIC MEDICINE JIBIA</title>
+<style>
+body { font-family: Arial, sans-serif; background:#f5f5f5; margin:0; }
+header { background:#0a7cff; color:white; padding:20px; text-align:center; }
+.container { padding:20px; max-width:600px; margin:auto; }
+.card { background:white; padding:20px; margin-bottom:20px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.15); }
+.button { display:inline-block; background:#0a7cff; color:white; text-decoration:none; padding:10px 15px; border-radius:6px; margin:5px 0; border:none; cursor:pointer; }
+input, select { width:100%; padding:10px; margin:6px 0; }
+footer { text-align:center; padding:15px; background:#222; color:#ccc; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>ABDUL LAWAL ISLAMIC MEDICINE JIBIA</h1>
-    <p class="lang">Siyar da Data & Airtime | Data & Airtime Sales</p>
-  </header>  <div class="container">
-    <div class="card">
-      <h2>Siyar da Data</h2>
-      <p class="lang">MTN, Airtel, Glo, 9mobile</p>
-      <p>Za ka iya yin odar data kai tsaye ta WhatsApp.</p>
-      <a class="button" href="https://wa.me/234814476833?text=Ina%20son%20yin%20odar%20Data">Yi Oda ta WhatsApp</a>
-    </div><div class="card">
-  <h2>Siyar da Airtime (Kati)</h2>
-  <p class="lang">All Nigerian Networks</p>
-  <p>Order Airtime easily via WhatsApp.</p>
-  <a class="button" href="https://wa.me/234814476833?text=Ina%20son%20yin%20odar%20Airtime">Yi Oda ta WhatsApp</a>
+<header>
+<h1>ABDUL LAWAL ISLAMIC MEDICINE JIBIA</h1>
+<p>Siyar da Data, Airtime & Islamic Medicine</p>
+</header><div class="container" id="auth">
+  <div class="card" id="registerCard">
+    <h2>Rijista / Register</h2>
+    <form onsubmit="registerUser(); return false;">
+      <label>Suna / Name:</label>
+      <input type="text" id="regName" required />
+      <label>Email:</label>
+      <input type="email" id="regEmail" required />
+      <label>Lambar Waya / Phone:</label>
+      <input type="tel" id="regPhone" required />
+      <label>Kalmar Sirri / Password:</label>
+      <input type="password" id="regPass" required />
+      <button class="button" type="submit">Register / Rijista</button>
+    </form>
+    <p>Ko <a href="#" onclick="showLogin()">Shiga / Login</a></p>
+  </div>  <div class="card" id="loginCard" style="display:none;">
+    <h2>Shiga / Login</h2>
+    <form onsubmit="loginUser(); return false;">
+      <label>Email:</label>
+      <input type="email" id="loginEmail" required />
+      <label>Kalmar Sirri / Password:</label>
+      <input type="password" id="loginPass" required />
+      <button class="button" type="submit">Login / Shiga</button>
+    </form>
+    <p>Ko <a href="#" onclick="showRegister()">Rijista / Register</a></p>
+  </div>
+</div><div class="container" id="dashboard" style="display:none;">
+  <div class="card">
+    <h2>Dashboard - Barka da zuwa, <span id="userName"></span>!</h2>
+    <p>Yi oda kai tsaye a kasa:</p>
+    <div>
+      <h3>Siyan Data</h3>
+      <form onsubmit="sendOrder(); return false;">
+        <label>Network:</label>
+        <select id="network">
+          <option>MTN</option>
+          <option>Airtel</option>
+          <option>Glo</option>
+          <option>9mobile</option>
+        </select>
+        <label>Data Plan:</label>
+        <select id="plan">
+          <option>1GB</option>
+          <option>2GB</option>
+          <option>5GB</option>
+        </select>
+        <label>Lambar Wayar Mai Karɓa:</label>
+        <input type="tel" id="phone" required />
+        <button class="button" type="submit">Sayi Yanzu</button>
+      </form>
+    </div><div>
+  <h3>Siyan Airtime</h3>
+  <form onsubmit="sendAirtime(); return false;">
+    <label>Network:</label>
+    <select id="airtel">
+      <option>MTN</option>
+      <option>Airtel</option>
+      <option>Glo</option>
+      <option>9mobile</option>
+    </select>
+    <label>Adadin Kudi:</label>
+    <input type="number" id="amount" required />
+    <label>Lambar Wayar Mai Karɓa:</label>
+    <input type="tel" id="airphone" required />
+    <button class="button" type="submit">Sayi Yanzu</button>
+  </form>
 </div>
+<button class="button" onclick="logoutUser()">Logout / Fita</button>
 
-<div class="card">
-  <h2>Tuntube Mu | Contact Us</h2>
-  <p><strong>Kira:</strong> <a href="tel:0814476833">0814476833</a></p>
-  <p><strong>WhatsApp:</strong> <a href="https://wa.me/234814476833">Tura Saƙo</a></p>
-  <p><strong>Email:</strong> <a href="mailto:abdulrahmanlawaljby@gmail.com">abdulrahmanlawaljby@gmail.com</a></p>
-</div>
+  </div>
+</div><footer>
+<p>© 2026 ABDUL LAWAL ISLAMIC MEDICINE JIBIA</p>
+</footer><script>
+function showLogin(){
+  document.getElementById('registerCard').style.display='none';
+  document.getElementById('loginCard').style.display='block';
+}
+function showRegister(){
+  document.getElementById('loginCard').style.display='none';
+  document.getElementById('registerCard').style.display='block';
+}
 
-  </div>  <footer>
-    <p>© 2026 ABDUL LAWAL ISLAMIC MEDICINE JIBIA. Duk hakkoki suna ajiye.</p>
-  </footer>
-</body>
+function registerUser(){
+  var n=document.getElementById('regName').value;
+  var e=document.getElementById('regEmail').value;
+  var p=document.getElementById('regPhone').value;
+  var pass=document.getElementById('regPass').value;
+  var user={name:n,email:e,phone:p,password:pass};
+  localStorage.setItem('user',JSON.stringify(user));
+  alert('Rijista ta yi nasara! Shiga yanzu.');
+  showLogin();
+}
+
+function loginUser(){
+  var e=document.getElementById('loginEmail').value;
+  var pass=document.getElementById('loginPass').value;
+  var user=JSON.parse(localStorage.getItem('user'));
+  if(user && user.email===e && user.password===pass){
+    document.getElementById('auth').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    document.getElementById('userName').innerText=user.name;
+  } else {
+    alert('Email ko Password bai dace ba');
+  }
+}
+
+function logoutUser(){
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('auth').style.display='block';
+}
+
+function sendOrder(){
+  var n=document.getElementById('network').value;
+  var p=document.getElementById('plan').value;
+  var ph=document.getElementById('phone').value;
+  var msg=`Ina son siyan Data. Network: ${n}, Plan: ${p}, Lamba: ${ph}`;
+  window.location.href='https://wa.me/234814476833?text='+encodeURIComponent(msg);
+}
+
+function sendAirtime(){
+  var n=document.getElementById('airtel').value;
+  var a=document.getElementById('amount').value;
+  var ph=document.getElementById('airphone').value;
+  var msg=`Ina son siyan Airtime. Network: ${n}, Kudi: ${a}, Lamba: ${ph}`;
+  window.location.href='https://wa.me/234814476833?text='+encodeURIComponent(msg);
+}
+</script></body>
 </html>
